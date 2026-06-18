@@ -4,6 +4,8 @@ import { useState, useCallback } from 'react'
 import { trackEvent } from '@/lib/analytics'
 import type { FormatType } from '@/types'
 
+const WA_PHONE = '77470701495'
+
 const FORMATS: { value: FormatType; label: string }[] = [
   { value: 'on-site', label: 'On-site' },
   { value: 'external', label: 'Внешняя площадка' },
@@ -11,6 +13,25 @@ const FORMATS: { value: FormatType; label: string }[] = [
   { value: 'family-day', label: 'Family Day' },
   { value: 'not-sure', label: 'Не знаю' },
 ]
+
+function buildWaMessage(data: Record<string, string>): string {
+  const lines = [
+    'Новая заявка JEDAI AI Heroes Camp',
+    '',
+    `Имя: ${data.name}`,
+    `Компания: ${data.company}`,
+    `Должность: ${data.position}`,
+    `Телефон: ${data.phone}`,
+    `Email: ${data.email}`,
+    `Количество детей: ${data.childrenCount}`,
+    `Формат: ${data.format ? FORMATS.find(f => f.value === data.format)?.label || data.format : 'Не указан'}`,
+  ]
+  if (data.comment) lines.push(`Комментарий: ${data.comment}`)
+  if (data.source_page) lines.push(`Страница: ${data.source_page}`)
+  if (data.audience_segment) lines.push(`Сегмент: ${data.audience_segment}`)
+  if (data.experiment_variant) lines.push(`Вариант: ${data.experiment_variant}`)
+  return encodeURIComponent(lines.join('\n'))
+}
 
 export function LeadForm({
   sourcePage,
@@ -21,7 +42,6 @@ export function LeadForm({
   audienceSegment: string
   experimentVariant: string
 }) {
-  const [submitted, setSubmitted] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -46,9 +66,17 @@ export function LeadForm({
         experiment_variant: experimentVariant,
         format: formData.format,
       })
-      setSubmitted(true)
+
+      const allData = {
+        ...formData,
+        source_page: sourcePage,
+        audience_segment: audienceSegment,
+        experiment_variant: experimentVariant,
+      }
+      const waUrl = `https://wa.me/${WA_PHONE}?text=${buildWaMessage(allData)}`
+      window.location.href = waUrl
     },
-    [sourcePage, audienceSegment, experimentVariant, formData.format]
+    [sourcePage, audienceSegment, experimentVariant, formData]
   )
 
   const handleFocus = useCallback(() => {
@@ -57,18 +85,6 @@ export function LeadForm({
       audience_segment: audienceSegment,
     })
   }, [sourcePage, audienceSegment])
-
-  if (submitted) {
-    return (
-      <div className="glass rounded-2xl p-8 text-center" role="alert">
-        <div className="text-4xl mb-4">✓</div>
-        <h3 className="text-xl font-semibold text-white mb-2">Заявка принята</h3>
-        <p className="text-zinc-300">
-          Мы свяжемся с вами и предложим оптимальный формат JEDAI AI Heroes Camp для вашей компании.
-        </p>
-      </div>
-    )
-  }
 
   return (
     <form onSubmit={handleSubmit} onFocus={handleFocus} className="glass rounded-2xl p-6 md:p-8 space-y-5">
