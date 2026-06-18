@@ -4,7 +4,7 @@ import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { AnalyticsScripts } from '@/components/AnalyticsScripts'
-import { OrganizationJsonLd } from '@/components/JsonLd'
+import { OrganizationJsonLd, LocalBusinessJsonLd } from '@/components/JsonLd'
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE } from '@/data/landingPages'
 
 const geistSans = Geist({
@@ -65,6 +65,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-zinc-950 text-white">
         <OrganizationJsonLd />
+        <LocalBusinessJsonLd />
         <AnalyticsScripts gaId={gaId} gtmId={gtmId} yandexId={yandexId} pixelId={pixelId} />
         <Header />
         <main className="flex-1">

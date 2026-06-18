@@ -72,6 +72,53 @@ export function OrganizationJsonLd() {
     name: COMPANY_NAME,
     url: SITE_URL,
     description: 'JEDAI AI Heroes Camp — корпоративный AI-лагерь для детей сотрудников.',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Алматы',
+      addressRegion: 'Алматы',
+      addressCountry: 'KZ',
+    },
+    telephone: '+7 747 070 1495',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+7 747 070 1495',
+      contactType: 'sales',
+      availableLanguage: ['Russian', 'Kazakh'],
+    },
+    areaServed: [
+      { '@type': 'City', name: 'Алматы' },
+      { '@type': 'City', name: 'Астана' },
+      { '@type': 'Country', name: 'Казахстан' },
+    ],
+  }
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: sanitize(JSON.stringify(jsonLd)) }}
+    />
+  )
+}
+
+export function LocalBusinessJsonLd() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: COMPANY_NAME,
+    url: SITE_URL,
+    description: 'Корпоративный AI-лагерь для детей сотрудников в Алматы.',
+    telephone: '+7 747 070 1495',
+    areaServed: ['Алматы', 'Астана', 'Казахстан'],
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Алматы',
+      addressRegion: 'Алматы',
+      addressCountry: 'KZ',
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+7 747 070 1495',
+      contactType: 'sales',
+    },
   }
   return (
     <script
