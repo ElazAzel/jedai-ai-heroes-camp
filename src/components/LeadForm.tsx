@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState } from 'react'
 import { trackEvent } from '@/lib/analytics'
 import type { FormatType } from '@/types'
 
@@ -53,38 +53,35 @@ export function LeadForm({
     comment: '',
   })
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-  }, [])
+  }
 
-  const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault()
-      trackEvent('form_submit', {
-        source_page: sourcePage,
-        audience_segment: audienceSegment,
-        experiment_variant: experimentVariant,
-        format: formData.format,
-      })
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    trackEvent('form_submit', {
+      source_page: sourcePage,
+      audience_segment: audienceSegment,
+      experiment_variant: experimentVariant,
+      format: formData.format,
+    })
 
-      const allData = {
-        ...formData,
-        source_page: sourcePage,
-        audience_segment: audienceSegment,
-        experiment_variant: experimentVariant,
-      }
-      const waUrl = `https://wa.me/${WA_PHONE}?text=${buildWaMessage(allData)}`
-      window.location.href = waUrl
-    },
-    [sourcePage, audienceSegment, experimentVariant, formData]
-  )
+    const allData = {
+      ...formData,
+      source_page: sourcePage,
+      audience_segment: audienceSegment,
+      experiment_variant: experimentVariant,
+    }
+    const waUrl = `https://wa.me/${WA_PHONE}?text=${buildWaMessage(allData)}`
+    window.location.href = waUrl
+  }
 
-  const handleFocus = useCallback(() => {
+  function handleFocus() {
     trackEvent('form_start', {
       source_page: sourcePage,
       audience_segment: audienceSegment,
     })
-  }, [sourcePage, audienceSegment])
+  }
 
   return (
     <form onSubmit={handleSubmit} onFocus={handleFocus} className="glass rounded-2xl p-6 md:p-8 space-y-5">
