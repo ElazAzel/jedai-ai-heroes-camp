@@ -363,6 +363,72 @@ img, svg, video, canvas {
   }
 }
 
+/* ===== 3D Perspective ===== */
+.perspective-800 { perspective: 800px; }
+.perspective-1000 { perspective: 1000px; }
+.transform-style-3d { transform-style: preserve-3d; }
+
+/* ===== Text Glitch ===== */
+@keyframes glitch {
+  0% { text-shadow: 2px 0 #0ea5e9, -2px 0 #8b5cf6; }
+  25% { text-shadow: -2px 0 #0ea5e9, 2px 0 #8b5cf6; }
+  50% { text-shadow: 2px 0 #0ea5e9, -2px 0 #8b5cf6; }
+  75% { text-shadow: -2px 0 #0ea5e9, 2px 0 #8b5cf6; }
+  100% { text-shadow: 2px 0 #0ea5e9, -2px 0 #8b5cf6; }
+}
+.animate-glitch {
+  animation: glitch 0.3s ease-in-out 3;
+}
+
+/* ===== Text Shimmer ===== */
+@keyframes textShimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+.text-shimmer {
+  background: linear-gradient(90deg, #e4e4e7 0%, #38bdf8 25%, #a78bfa 50%, #22d3ee 75%, #e4e4e7 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: textShimmer 3s linear infinite;
+}
+
+/* ===== Pulse Ring ===== */
+@keyframes pulseRing {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+.animate-pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid rgba(14,165,233,0.3);
+  animation: pulseRing 2s ease-out infinite;
+}
+
+/* ===== Scan Line ===== */
+.bg-scanline {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(14,165,233,0.008) 2px,
+    rgba(14,165,233,0.008) 4px
+  );
+}
+
+/* ===== Morph Blob ===== */
+@keyframes morphBlob {
+  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+.animate-morph {
+  animation: morphBlob 8s ease-in-out infinite;
+}
+
 /* ===== Scrollbar Hidden ===== */
 .scrollbar-none::-webkit-scrollbar { display: none; }
 .scrollbar-none { -ms-overflow-style: none; scroll-width: none; }

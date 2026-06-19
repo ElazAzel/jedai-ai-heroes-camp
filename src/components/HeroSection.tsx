@@ -4,6 +4,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import { trackEvent } from '@/lib/analytics'
 import type { HeroVariant } from '@/types'
+import { FloatingShape3D, Sparkles, BlobBackground, OrbitingCircles, FloatingLines } from './Effects'
 
 function useMouseTilt(ref: React.RefObject<HTMLDivElement | null>) {
   const x = useMotionValue(0.5)
@@ -132,12 +133,19 @@ function HeroCorporatePremium({ page }: { page: { h1: string; heroAngle: string;
   const { rotateX, rotateY } = useMouseTilt(ref)
 
   return (
-    <section className="hero-section min-h-[80vh] sm:min-h-[75vh] flex items-center bg-grid-dense">
+    <section className="hero-section min-h-[80vh] sm:min-h-[75vh] flex items-center bg-grid-dense bg-scanline">
+      <BlobBackground />
       <Particles />
       <FloatingBadges />
+      <FloatingShape3D type="cube" size={50} color="rgba(14,165,233,0.06)" x={85} y={15} />
+      <FloatingShape3D type="sphere" size={40} color="rgba(139,92,246,0.06)" x={10} y={75} />
+      <FloatingShape3D type="pyramid" size={35} color="rgba(6,182,212,0.06)" x={90} y={70} />
+      <OrbitingCircles />
+      <FloatingLines />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-zinc-950" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-electric/10 rounded-full blur-[100px]" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[120px] animate-morph" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-electric/10 rounded-full blur-[100px] animate-morph" style={{ animationDelay: '2s' }} />
+      <Sparkles count={25} className="hidden lg:block" />
       <div ref={ref} className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 w-full">
         <motion.div
           className="max-w-3xl"
@@ -200,7 +208,14 @@ function HeroCorporatePremium({ page }: { page: { h1: string; heroAngle: string;
                 transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }}
                 whileHover={{ scale: 1.05, y: -4 }}
               >
-                <div className="stat-value gradient-text-cyber">{stat.label}</div>
+                <motion.div
+                  className="stat-value gradient-text-cyber"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 + i * 0.1 }}
+                >
+                  {stat.label}
+                </motion.div>
                 <div className="text-xs sm:text-sm text-zinc-500 mt-0.5">{stat.desc}</div>
               </motion.div>
             ))}

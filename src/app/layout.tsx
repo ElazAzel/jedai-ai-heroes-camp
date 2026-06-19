@@ -4,7 +4,9 @@ import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
 import { AnalyticsScripts } from '@/components/AnalyticsScripts'
+import { ClientLayoutWrapper } from '@/components/ClientLayoutWrapper'
 import { OrganizationJsonLd, LocalBusinessJsonLd } from '@/components/JsonLd'
+
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE } from '@/data/landingPages'
 
 const poppins = Poppins({
@@ -108,6 +110,7 @@ export default function RootLayout({
         <OrganizationJsonLd />
         <LocalBusinessJsonLd />
         <AnalyticsScripts gaId={gaId} gtmId={gtmId} yandexId={yandexId} pixelId={pixelId} />
+        <ClientLayoutWrapper />
         <Header />
         <main className="flex-1">
           {children}

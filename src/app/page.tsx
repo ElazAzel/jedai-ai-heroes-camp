@@ -10,6 +10,7 @@ import { DemoDaySection } from '@/components/DemoDaySection'
 import { LeadForm } from '@/components/LeadForm'
 import { AeoAnswerBlock } from '@/components/AeoBlock'
 import { GeoSummaryBlock } from '@/components/GeoSummary'
+import { ParallaxSection, CountUp, BlobBackground, AnimatedGrid, Sparkles, GlowReveal } from '@/components/Effects'
 
 function Particles() {
   return (
@@ -43,21 +44,25 @@ function Particles() {
 export default function Home() {
   return (
     <div className="min-h-screen bg-zinc-950">
-      <section className="relative min-h-[85vh] sm:min-h-[85vh] flex items-center bg-grid overflow-hidden">
-        <Particles />
+      <section className="relative min-h-[85vh] sm:min-h-[85vh] flex items-center bg-grid bg-scanline overflow-hidden">
+        <BlobBackground />
+        <AnimatedGrid />
+        <Sparkles count={30} />
         <div className="absolute inset-0">
           <motion.div
-            className="hidden sm:block absolute top-1/4 left-1/4 w-96 h-96 bg-violet/20 rounded-full blur-[120px]"
+            className="hidden sm:block absolute top-1/4 left-1/4 w-96 h-96 bg-violet/20 rounded-full blur-[120px] animate-morph"
             animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           />
           <motion.div
-            className="hidden sm:block absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan/10 rounded-full blur-[100px]"
+            className="hidden sm:block absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan/10 rounded-full blur-[100px] animate-morph"
+            style={{ animationDelay: '2s' }}
             animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.4, 0.2] }}
             transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
           />
           <motion.div
-            className="hidden sm:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-electric/5 rounded-full blur-[100px]"
+            className="hidden sm:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-electric/5 rounded-full blur-[100px] animate-morph"
+            style={{ animationDelay: '4s' }}
             animate={{ scale: [1, 1.05, 1] }}
             transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
           />
@@ -176,38 +181,63 @@ export default function Home() {
       <ProgramTimeline />
       <OutcomesGrid />
 
-      <section className="py-16 bg-zinc-900/30" aria-label="Почему это выгодно">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.h2
-            className="text-3xl md:text-4xl font-bold text-white text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Почему это выгодно компании
-          </motion.h2>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
-            {[
-              { title: 'Забота о семьях', desc: 'Демонстрирует сотрудникам, что компания инвестирует в развитие их детей' },
-              { title: 'HR-бренд', desc: 'Укрепляет имидж современного работодателя и повышает лояльность' },
-              { title: 'CSR-отчётность', desc: 'Готовый образовательный формат для социальных программ и ESG' },
-            ].map((item, i) => (
-              <motion.div
-                key={item.title}
-                className="card card-glow"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.4 }}
-                whileHover={{ scale: 1.02, y: -3 }}
-              >
-                <h3 className="text-lg font-semibold text-white mb-3">{item.title}</h3>
-                <p className="text-sm text-zinc-400">{item.desc}</p>
-              </motion.div>
-            ))}
+      <section className="py-16 bg-zinc-900/30 relative overflow-hidden" aria-label="Почему это выгодно">
+        <div className="absolute inset-0 bg-grid opacity-30" />
+        <ParallaxSection speed={0.3}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <motion.h2
+              className="text-3xl md:text-4xl font-bold text-white text-center mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              Почему это выгодно компании
+            </motion.h2>
+            <motion.div
+              className="grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              {[
+                { end: 50, suffix: '+', label: 'Компаний-партнёров' },
+                { end: 500, suffix: '+', label: 'Детей обучено' },
+                { end: 10, suffix: '', label: 'Городов Казахстана' },
+              ].map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <div className="text-2xl sm:text-4xl font-bold gradient-text-cyber">
+                    <CountUp end={stat.end} suffix={stat.suffix} />
+                  </div>
+                  <div className="text-xs sm:text-sm text-zinc-500 mt-1">{stat.label}</div>
+                </div>
+              ))}
+            </motion.div>
+            <GlowReveal>
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+                {[
+                  { title: 'Забота о семьях', desc: 'Демонстрирует сотрудникам, что компания инвестирует в развитие их детей' },
+                  { title: 'HR-бренд', desc: 'Укрепляет имидж современного работодателя и повышает лояльность' },
+                  { title: 'CSR-отчётность', desc: 'Готовый образовательный формат для социальных программ и ESG' },
+                ].map((item, i) => (
+                  <motion.div
+                    key={item.title}
+                    className="card card-glow"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1, duration: 0.4 }}
+                    whileHover={{ scale: 1.02, y: -3 }}
+                  >
+                    <h3 className="text-lg font-semibold text-white mb-3">{item.title}</h3>
+                    <p className="text-sm text-zinc-400">{item.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+            </GlowReveal>
           </div>
-        </div>
+        </ParallaxSection>
       </section>
 
       <SafetySection />
