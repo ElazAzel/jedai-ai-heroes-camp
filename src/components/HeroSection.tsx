@@ -4,7 +4,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 import { trackEvent } from '@/lib/analytics'
 import type { HeroVariant } from '@/types'
-import { FloatingShape3D, Sparkles, BlobBackground, OrbitingCircles, FloatingLines } from './Effects'
+import { FloatingShape3D, Sparkles, BlobBackground, OrbitingCircles, FloatingLines, TypeWriter, ParticleNetwork, ShimmerCard, Card3DStack, AudioBars, GradientMesh, HexGrid, MatrixRain } from './Effects'
 
 function useMouseTilt(ref: React.RefObject<HTMLDivElement | null>) {
   const x = useMotionValue(0.5)
@@ -134,18 +134,25 @@ function HeroCorporatePremium({ page }: { page: { h1: string; heroAngle: string;
 
   return (
     <section className="hero-section min-h-[80vh] sm:min-h-[75vh] flex items-center bg-grid-dense bg-scanline">
+      <ParticleNetwork count={50} />
+      <MatrixRain />
       <BlobBackground />
+      <GradientMesh />
+      <HexGrid />
       <Particles />
+      <AudioBars count={30} className="hidden lg:flex" />
       <FloatingBadges />
       <FloatingShape3D type="cube" size={50} color="rgba(14,165,233,0.06)" x={85} y={15} />
       <FloatingShape3D type="sphere" size={40} color="rgba(139,92,246,0.06)" x={10} y={75} />
       <FloatingShape3D type="pyramid" size={35} color="rgba(6,182,212,0.06)" x={90} y={70} />
+      <FloatingShape3D type="cube" size={25} color="rgba(250,204,21,0.05)" x={50} y={10} />
+      <FloatingShape3D type="sphere" size={30} color="rgba(14,165,233,0.05)" x={5} y={40} />
       <OrbitingCircles />
       <FloatingLines />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-zinc-950" />
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-[120px] animate-morph" />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-electric/10 rounded-full blur-[100px] animate-morph" style={{ animationDelay: '2s' }} />
-      <Sparkles count={25} className="hidden lg:block" />
+      <Sparkles count={30} className="hidden lg:block" />
       <div ref={ref} className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 w-full">
         <motion.div
           className="max-w-3xl"
@@ -175,7 +182,7 @@ function HeroCorporatePremium({ page }: { page: { h1: string; heroAngle: string;
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.35 }}
           >
-            {page.heroAngle}
+            <TypeWriter text={page.heroAngle} speed={20} />
           </motion.p>
           <motion.div
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-10 sm:mb-14"
@@ -200,24 +207,25 @@ function HeroCorporatePremium({ page }: { page: { h1: string; heroAngle: string;
               { label: '4+ формата', desc: 'on-site, weekend, family day' },
               { label: '1 Demo Day', desc: 'презентация проектов' },
             ].map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                className="card text-center p-3 sm:p-4 card-glow"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }}
-                whileHover={{ scale: 1.05, y: -4 }}
-              >
+              <Card3DStack key={stat.label}>
                 <motion.div
-                  className="stat-value gradient-text-cyber"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1 + i * 0.1 }}
+                  className="card text-center p-3 sm:p-4 card-glow holographic"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.8 + i * 0.1 }}
+                  whileHover={{ scale: 1.05, y: -4 }}
                 >
-                  {stat.label}
+                  <motion.div
+                    className="stat-value gradient-text-cyber"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1 + i * 0.1 }}
+                  >
+                    {stat.label}
+                  </motion.div>
+                  <div className="text-xs sm:text-sm text-zinc-500 mt-0.5">{stat.desc}</div>
                 </motion.div>
-                <div className="text-xs sm:text-sm text-zinc-500 mt-0.5">{stat.desc}</div>
-              </motion.div>
+              </Card3DStack>
             ))}
           </motion.div>
         </motion.div>
