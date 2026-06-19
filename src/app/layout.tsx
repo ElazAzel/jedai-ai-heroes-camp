@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Poppins, Inter } from 'next/font/google'
 import './globals.css'
 import { Header } from '@/components/Header'
 import { Footer } from '@/components/Footer'
@@ -7,14 +7,16 @@ import { AnalyticsScripts } from '@/components/AnalyticsScripts'
 import { OrganizationJsonLd, LocalBusinessJsonLd } from '@/components/JsonLd'
 import { SITE_URL, SITE_NAME, DEFAULT_OG_IMAGE } from '@/data/landingPages'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const poppins = Poppins({
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-heading',
 })
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+const inter = Inter({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-sans',
 })
 
 export const metadata: Metadata = {
@@ -100,9 +102,9 @@ export default function RootLayout({
   return (
     <html
       lang="ru"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${poppins.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-zinc-950 text-white">
+      <body className="min-h-full flex flex-col bg-background text-foreground">
         <OrganizationJsonLd />
         <LocalBusinessJsonLd />
         <AnalyticsScripts gaId={gaId} gtmId={gtmId} yandexId={yandexId} pixelId={pixelId} />

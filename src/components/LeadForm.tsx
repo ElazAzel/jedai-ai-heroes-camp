@@ -84,12 +84,12 @@ export function LeadForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} onFocus={handleFocus} className="glass-premium rounded-2xl p-6 md:p-8 space-y-5">
+    <form onSubmit={handleSubmit} onFocus={handleFocus} className="card p-5 sm:p-8 space-y-5">
       <input type="hidden" name="source_page" value={sourcePage} />
       <input type="hidden" name="audience_segment" value={audienceSegment} />
       <input type="hidden" name="experiment_variant" value={experimentVariant} />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
         <FormField label="Имя" name="name" required value={formData.name} onChange={handleChange} placeholder="Ваше имя" />
         <FormField label="Компания" name="company" required value={formData.company} onChange={handleChange} placeholder="Название компании" />
         <FormField label="Должность" name="position" value={formData.position} onChange={handleChange} placeholder="Ваша должность" />
@@ -106,11 +106,11 @@ export function LeadForm({
           name="format"
           value={formData.format}
           onChange={handleChange}
-          className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-400 transition-colors appearance-none"
+          className="w-full rounded-xl bg-zinc-800 border border-zinc-700 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-accent transition-colors appearance-none"
         >
-          <option value="" className="bg-zinc-950">Выберите формат</option>
+          <option value="" className="bg-zinc-900">Выберите формат</option>
           {FORMATS.map((f) => (
-            <option key={f.value} value={f.value} className="bg-zinc-950">
+            <option key={f.value} value={f.value} className="bg-zinc-900">
               {f.label}
             </option>
           ))}
@@ -125,13 +125,13 @@ export function LeadForm({
           onChange={handleChange}
           rows={3}
           placeholder="Дополнительная информация..."
-          className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-400 transition-colors resize-none"
+          className="w-full rounded-xl bg-zinc-800 border border-zinc-700 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-accent transition-colors resize-none"
         />
       </div>
 
       <button
         type="submit"
-        className="w-full py-4 rounded-xl font-semibold text-base bg-gradient-to-r from-electric via-violet to-cyan text-white hover:opacity-90 transition-all duration-300 glow cursor-pointer"
+        className="btn btn-primary w-full text-base py-3.5"
       >
         Получить предложение
       </button>
@@ -173,7 +173,7 @@ function FormField({
         onChange={onChange}
         placeholder={placeholder}
         min={min}
-        className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-400 transition-colors"
+        className="w-full rounded-xl bg-zinc-800 border border-zinc-700 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-accent transition-colors"
       />
     </div>
   )

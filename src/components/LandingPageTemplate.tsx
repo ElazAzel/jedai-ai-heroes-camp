@@ -28,7 +28,7 @@ export function LandingPageTemplate({ page }: { page: LandingPage }) {
       <SoftwareApplicationJsonLd />
       <VideoObjectJsonLd />
 
-      <div className="min-h-screen bg-zinc-950">
+      <div className="min-h-screen bg-background">
         <HeroSection page={page} variant={page.heroVariant} />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
@@ -52,14 +52,13 @@ export function LandingPageTemplate({ page }: { page: LandingPage }) {
         <FAQSection items={page.faq} />
         <RelatedPages slugs={page.relatedPages} />
 
-        <section id="form-section" className="py-20 bg-aurora relative overflow-hidden">
-          <div className="absolute inset-0 bg-grid opacity-30" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-zinc-950/50 to-transparent" />
-          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
-              <span className="gradient-text-premium">Получить предложение</span>
+        <section id="form-section" className="py-20">
+          <hr className="section-divider" />
+          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20">
+            <h2 className="section-header">
+              Получить предложение
             </h2>
-            <p className="text-zinc-400 text-center mb-8">
+            <p className="text-sm sm:text-base text-zinc-400 sm:text-center mb-8">
               Оставьте заявку, и мы свяжемся с вами
             </p>
             <LeadForm
