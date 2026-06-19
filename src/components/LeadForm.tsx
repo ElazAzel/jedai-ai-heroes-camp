@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 import { trackEvent } from '@/lib/analytics'
 import type { FormatType } from '@/types'
 
@@ -52,6 +53,7 @@ export function LeadForm({
     format: '',
     comment: '',
   })
+  const [focusedField, setFocusedField] = useState<string | null>(null)
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -84,21 +86,34 @@ export function LeadForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} onFocus={handleFocus} className="card p-5 sm:p-8 space-y-5">
+    <motion.form
+      onSubmit={handleSubmit}
+      onFocus={handleFocus}
+      className="card card-glow p-5 sm:p-8 space-y-5"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+    >
       <input type="hidden" name="source_page" value={sourcePage} />
       <input type="hidden" name="audience_segment" value={audienceSegment} />
       <input type="hidden" name="experiment_variant" value={experimentVariant} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-        <FormField label="Имя" name="name" required value={formData.name} onChange={handleChange} placeholder="Ваше имя" />
-        <FormField label="Компания" name="company" required value={formData.company} onChange={handleChange} placeholder="Название компании" />
-        <FormField label="Должность" name="position" value={formData.position} onChange={handleChange} placeholder="Ваша должность" />
-        <FormField label="Телефон / WhatsApp" name="phone" type="tel" required value={formData.phone} onChange={handleChange} placeholder="+7 700 000 00 00" />
-        <FormField label="Email" name="email" type="email" required value={formData.email} onChange={handleChange} placeholder="email@company.com" />
-        <FormField label="Количество детей" name="childrenCount" type="number" min="1" value={formData.childrenCount} onChange={handleChange} placeholder="1" />
+        <FormField label="Имя" name="name" required value={formData.name} onChange={handleChange} placeholder="Ваше имя" focusedField={focusedField} setFocusedField={setFocusedField} />
+        <FormField label="Компания" name="company" required value={formData.company} onChange={handleChange} placeholder="Название компании" focusedField={focusedField} setFocusedField={setFocusedField} />
+        <FormField label="Должность" name="position" value={formData.position} onChange={handleChange} placeholder="Ваша должность" focusedField={focusedField} setFocusedField={setFocusedField} />
+        <FormField label="Телефон / WhatsApp" name="phone" type="tel" required value={formData.phone} onChange={handleChange} placeholder="+7 700 000 00 00" focusedField={focusedField} setFocusedField={setFocusedField} />
+        <FormField label="Email" name="email" type="email" required value={formData.email} onChange={handleChange} placeholder="email@company.com" focusedField={focusedField} setFocusedField={setFocusedField} />
+        <FormField label="Количество детей" name="childrenCount" type="number" min="1" value={formData.childrenCount} onChange={handleChange} placeholder="1" focusedField={focusedField} setFocusedField={setFocusedField} />
       </div>
 
-      <div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.2 }}
+      >
         <label className="block text-sm font-medium text-zinc-300 mb-1.5">
           Предпочтительный формат
         </label>
@@ -106,7 +121,9 @@ export function LeadForm({
           name="format"
           value={formData.format}
           onChange={handleChange}
-          className="w-full rounded-xl bg-zinc-800 border border-zinc-700 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-accent transition-colors appearance-none"
+          onFocus={() => setFocusedField('format')}
+          onBlur={() => setFocusedField(null)}
+          className="w-full rounded-xl bg-zinc-800 border border-zinc-700 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-accent transition-all duration-300 appearance-none"
         >
           <option value="" className="bg-zinc-900">Выберите формат</option>
           {FORMATS.map((f) => (
@@ -115,27 +132,36 @@ export function LeadForm({
             </option>
           ))}
         </select>
-      </div>
+      </motion.div>
 
-      <div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3 }}
+      >
         <label className="block text-sm font-medium text-zinc-300 mb-1.5">Комментарий</label>
         <textarea
           name="comment"
           value={formData.comment}
           onChange={handleChange}
+          onFocus={() => setFocusedField('comment')}
+          onBlur={() => setFocusedField(null)}
           rows={3}
           placeholder="Дополнительная информация..."
-          className="w-full rounded-xl bg-zinc-800 border border-zinc-700 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-accent transition-colors resize-none"
+          className="w-full rounded-xl bg-zinc-800 border border-zinc-700 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-accent transition-all duration-300 resize-none"
         />
-      </div>
+      </motion.div>
 
-      <button
+      <motion.button
         type="submit"
-        className="btn btn-primary w-full text-base py-3.5"
+        className="btn btn-primary btn-glow w-full text-base py-3.5"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
       >
         Получить предложение
-      </button>
-    </form>
+      </motion.button>
+    </motion.form>
   )
 }
 
@@ -148,6 +174,8 @@ function FormField({
   onChange,
   placeholder,
   min,
+  focusedField,
+  setFocusedField,
 }: {
   label: string
   name: string
@@ -157,9 +185,16 @@ function FormField({
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
   placeholder?: string
   min?: string
+  focusedField: string | null
+  setFocusedField: (name: string | null) => void
 }) {
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.3 }}
+    >
       <label htmlFor={name} className="block text-sm font-medium text-zinc-300 mb-1.5">
         {label}
         {required && <span className="text-red-400 ml-1">*</span>}
@@ -173,8 +208,12 @@ function FormField({
         onChange={onChange}
         placeholder={placeholder}
         min={min}
-        className="w-full rounded-xl bg-zinc-800 border border-zinc-700 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-accent transition-colors"
+        onFocus={() => setFocusedField(name)}
+        onBlur={() => setFocusedField(null)}
+        className={`w-full rounded-xl bg-zinc-800 border px-4 py-3 text-white placeholder-zinc-500 focus:outline-none transition-all duration-300 ${
+          focusedField === name ? 'border-accent shadow-[0_0_12px_rgba(14,165,233,0.15)]' : 'border-zinc-700'
+        }`}
       />
-    </div>
+    </motion.div>
   )
 }

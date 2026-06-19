@@ -1,3 +1,7 @@
+'use client'
+
+import { motion } from 'framer-motion'
+
 export function CompanyValueSection({ audience }: { audience: string }) {
   const isParent = audience.toLowerCase().includes('родител')
   const isCompany = !isParent
@@ -6,23 +10,46 @@ export function CompanyValueSection({ audience }: { audience: string }) {
     <section className="py-16 sm:py-20" aria-label="Почему это выгодно">
       <hr className="section-divider" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20">
-        <h2 className="section-header">
+        <motion.h2
+          className="section-header gradient-text-cyber"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           Почему это выгодно
-        </h2>
-        <p className="text-sm sm:text-base text-zinc-400 sm:text-center mb-8 sm:mb-12 max-w-xl sm:mx-auto">
+        </motion.h2>
+        <motion.p
+          className="text-sm sm:text-base text-zinc-400 sm:text-center mb-8 sm:mb-12 max-w-xl sm:mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
           {isCompany ? 'JEDAI решает несколько бизнес-задач одновременно' : 'Что получит ваш ребёнок'}
-        </p>
+        </motion.p>
         <div className="flex snap-x snap-mandatory gap-3 sm:gap-6 overflow-x-auto pb-4 sm:pb-0 sm:grid sm:grid-cols-2 md:grid-cols-3 scrollbar-none">
-          {(isCompany ? companyCards : parentCards).map((card) => (
-            <div key={card.title} className="card flex-shrink-0 w-64 sm:w-auto snap-start">
-              <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-3">
+          {(isCompany ? companyCards : parentCards).map((card, i) => (
+            <motion.div
+              key={card.title}
+              className="card flex-shrink-0 w-64 sm:w-auto snap-start border-glow-hover"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.4 }}
+              whileHover={{ scale: 1.03, y: -4 }}
+            >
+              <motion.div
+                className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center mb-3"
+                whileHover={{ rotate: 10, scale: 1.1 }}
+              >
                 <svg className="w-5 h-5 text-accent-light" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d={card.iconPath} />
                 </svg>
-              </div>
+              </motion.div>
               <h3 className="text-base sm:text-lg font-semibold text-white mb-1 sm:mb-2">{card.title}</h3>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">{card.description}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

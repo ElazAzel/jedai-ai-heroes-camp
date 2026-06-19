@@ -1,18 +1,8 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-import { LANDING_PAGES, SITE_URL } from '@/data/landingPages'
+'use client'
 
-export const metadata: Metadata = {
-  title: 'Все страницы JEDAI AI Heroes Camp',
-  description: 'Полный список SEO-страниц JEDAI AI Heroes Camp: все целевые аудитории, поисковые интенты и форматы.',
-  alternates: {
-    canonical: `${SITE_URL}/landing-pages`,
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-}
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { LANDING_PAGES } from '@/data/landingPages'
 
 export default function LandingPagesIndex() {
   const segments = [...new Set(LANDING_PAGES.map((p) => p.experimentVariant))]
@@ -20,20 +10,31 @@ export default function LandingPagesIndex() {
   return (
     <div className="min-h-screen bg-zinc-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="mb-12">
+        <motion.div
+          className="mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
           <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Все страницы JEDAI AI Heroes Camp
           </h1>
           <p className="text-zinc-400">
             Полный список SEO-оптимизированных страниц. Каждая страница предназначена для своей аудитории и поискового интента.
           </p>
-        </div>
+        </motion.div>
 
         <div className="space-y-8">
-          {segments.map((segment) => {
+          {segments.map((segment, si) => {
             const pages = LANDING_PAGES.filter((p) => p.experimentVariant === segment)
             return (
-              <div key={segment}>
+              <motion.div
+                key={segment}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: si * 0.1, duration: 0.4 }}
+              >
                 <h2 className="text-lg font-semibold text-cyan-400 mb-4 uppercase tracking-wider">
                   {segment}
                 </h2>
@@ -49,8 +50,15 @@ export default function LandingPagesIndex() {
                       </tr>
                     </thead>
                     <tbody>
-                      {pages.map((page) => (
-                        <tr key={page.slug} className="border-b border-white/5 hover:bg-white/5">
+                      {pages.map((page, i) => (
+                        <motion.tr
+                          key={page.slug}
+                          className="border-b border-white/5 hover:bg-white/5"
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: i * 0.02, duration: 0.2 }}
+                        >
                           <td className="py-3 px-4">
                             <Link
                               href={`/${page.slug}`}
@@ -67,21 +75,27 @@ export default function LandingPagesIndex() {
                               Индексируется
                             </span>
                           </td>
-                        </tr>
+                        </motion.tr>
                       ))}
                     </tbody>
                   </table>
                 </div>
-              </div>
+              </motion.div>
             )
           })}
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10">
+        <motion.div
+          className="mt-12 pt-8 border-t border-white/10"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           <p className="text-zinc-500 text-sm">
             Всего страниц: {LANDING_PAGES.length} | Последнее обновление: {new Date().toISOString().split('T')[0]}
           </p>
-        </div>
+        </motion.div>
       </div>
     </div>
   )

@@ -1,8 +1,17 @@
+'use client'
+
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 export function Breadcrumbs({ items }: { items: { label: string; href?: string }[] }) {
   return (
-    <nav aria-label="Breadcrumb" className="mb-6">
+    <motion.nav
+      aria-label="Breadcrumb"
+      className="mb-6"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.4, delay: 0.1 }}
+    >
       <ol className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-zinc-600">
         {items.map((item, i) => (
           <li key={i} className="flex items-center gap-2">
@@ -17,6 +26,6 @@ export function Breadcrumbs({ items }: { items: { label: string; href?: string }
           </li>
         ))}
       </ol>
-    </nav>
+    </motion.nav>
   )
 }

@@ -1,5 +1,6 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import { trackEvent } from '@/lib/analytics'
 
 const formats = [
@@ -30,17 +31,35 @@ export function FormatsSection() {
     <section className="py-16 sm:py-20" aria-label="Форматы проведения">
       <hr className="section-divider" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-20">
-        <h2 className="section-header">
+        <motion.h2
+          className="section-header gradient-text-cyber"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           Форматы проведения
-        </h2>
-        <p className="text-sm sm:text-base text-zinc-400 sm:text-center mb-8 sm:mb-12 max-w-2xl sm:mx-auto">
+        </motion.h2>
+        <motion.p
+          className="text-sm sm:text-base text-zinc-400 sm:text-center mb-8 sm:mb-12 max-w-2xl sm:mx-auto"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
           Выберите формат, который подходит вашей компании
-        </p>
+        </motion.p>
         <div className="flex snap-x snap-mandatory gap-3 sm:gap-6 overflow-x-auto pb-4 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-4 scrollbar-none">
-          {formats.map((format) => (
-            <div
+          {formats.map((format, i) => (
+            <motion.div
               key={format.title}
-              className="card flex-shrink-0 w-64 sm:w-auto snap-start cursor-pointer transition-all duration-200 hover:border-zinc-600"
+              className="card flex-shrink-0 w-64 sm:w-auto snap-start cursor-pointer border-glow-hover"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.4 }}
+              whileHover={{ scale: 1.03, y: -4 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => trackEvent('format_card_click', { format: format.title })}
               onKeyDown={(e) => { if (e.key === 'Enter') trackEvent('format_card_click', { format: format.title }) }}
               role="button"
@@ -54,7 +73,7 @@ export function FormatsSection() {
                   <span key={b} className="text-[10px] sm:text-xs text-accent-light bg-accent/10 px-1.5 sm:px-2 py-0.5 rounded-full">{b}</span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
