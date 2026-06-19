@@ -11,7 +11,7 @@ export function GeoSummaryBlock({ summary }: { summary: string }) {
               {summary}
             </p>
           </div>
-          <div className="glass rounded-xl p-6">
+          <div className="bento-card rounded-xl p-6">
             <h3 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-4">
               Факты
             </h3>

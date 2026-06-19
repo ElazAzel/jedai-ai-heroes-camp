@@ -3,7 +3,7 @@ import { LANDING_PAGES, SITE_URL } from '@/data/landingPages'
 export const dynamic = 'force-static'
 
 export async function GET() {
-  const staticPages = ['', 'landing-pages']
+  const staticPages = ['', 'landing-pages', 'pricing', 'privacy-policy']
   const allPages = [...staticPages, ...LANDING_PAGES.map((p) => p.slug)]
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

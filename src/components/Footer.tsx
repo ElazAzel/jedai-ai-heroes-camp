@@ -3,13 +3,13 @@ import { FOOTER_POPULAR_PAGES } from '@/data/landingPages'
 
 export function Footer() {
   return (
-    <footer className="bg-zinc-900 border-t border-white/5 pb-16 md:pb-0">
+    <footer className="bg-zinc-950 border-t border-white/5 pb-16 md:pb-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-lg font-bold gradient-text mb-4">
-              JEDAI AI Heroes Camp
-            </h3>
+            <Link href="/" className="text-lg font-bold gradient-text mb-4 inline-block">
+              JEDAI
+            </Link>
             <p className="text-sm text-zinc-400 leading-relaxed">
               Корпоративный AI-лагерь для детей сотрудников. 10 учебных дней, AI-проекты и Demo Day.
             </p>
@@ -44,18 +44,23 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/ai-camp-for-employees-children" className="text-sm text-zinc-400 hover:text-cyan-300 transition-colors">
+                <Link href="/for-companies" className="text-sm text-zinc-400 hover:text-cyan-300 transition-colors">
                   Для компаний
                 </Link>
               </li>
               <li>
-                <Link href="/ai-camp-for-parents" className="text-sm text-zinc-400 hover:text-cyan-300 transition-colors">
+                <Link href="/for-parents" className="text-sm text-zinc-400 hover:text-cyan-300 transition-colors">
                   Для родителей
                 </Link>
               </li>
               <li>
                 <Link href="/safe-ai-for-kids" className="text-sm text-zinc-400 hover:text-cyan-300 transition-colors">
                   Безопасность
+                </Link>
+              </li>
+              <li>
+                <Link href="/cities" className="text-sm text-zinc-400 hover:text-cyan-300 transition-colors">
+                  Все города
                 </Link>
               </li>
             </ul>

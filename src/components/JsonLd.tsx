@@ -127,3 +127,73 @@ export function LocalBusinessJsonLd() {
     />
   )
 }
+
+export function CourseJsonLd({ page }: { page: LandingPage }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    name: page.h1,
+    description: page.description,
+    provider: {
+      '@type': 'Organization',
+      name: COMPANY_NAME,
+      url: SITE_URL,
+    },
+    educationalCredentialAwarded: {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'Certificate',
+      name: 'Сертификат JEDAI AI Heroes Camp',
+    },
+    totalHistoricalEnrollment: '12-30',
+    inLanguage: 'ru',
+    offers: {
+      '@type': 'Offer',
+      category: 'Paid',
+      availability: 'https://schema.org/InStock',
+      priceSpecification: {
+        '@type': 'PriceSpecification',
+        description: 'Стоимость рассчитывается индивидуально',
+      },
+    },
+    audience: {
+      '@type': 'Audience',
+      suggestedGender: 'unisex',
+      suggestedMaxAge: 16,
+      suggestedMinAge: 10,
+    },
+    timeRequired: 'P10D',
+  }
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: sanitize(JSON.stringify(jsonLd)) }}
+    />
+  )
+}
+
+export function EventJsonLd() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: 'Demo Day JEDAI AI Heroes Camp',
+    description: 'Финальная защита AI-проектов детей перед родителями и представителями компании.',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    eventStatus: 'https://schema.org/EventScheduled',
+    inLanguage: 'ru',
+    organizer: {
+      '@type': 'Organization',
+      name: COMPANY_NAME,
+      url: SITE_URL,
+    },
+    performer: {
+      '@type': 'Organization',
+      name: COMPANY_NAME,
+    },
+  }
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: sanitize(JSON.stringify(jsonLd)) }}
+    />
+  )
+}

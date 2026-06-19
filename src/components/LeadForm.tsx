@@ -84,7 +84,7 @@ export function LeadForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} onFocus={handleFocus} className="glass rounded-2xl p-6 md:p-8 space-y-5">
+    <form onSubmit={handleSubmit} onFocus={handleFocus} className="glass-premium rounded-2xl p-6 md:p-8 space-y-5">
       <input type="hidden" name="source_page" value={sourcePage} />
       <input type="hidden" name="audience_segment" value={audienceSegment} />
       <input type="hidden" name="experiment_variant" value={experimentVariant} />
@@ -108,9 +108,9 @@ export function LeadForm({
           onChange={handleChange}
           className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-zinc-500 focus:outline-none focus:border-cyan-400 transition-colors appearance-none"
         >
-          <option value="" className="bg-zinc-900">Выберите формат</option>
+          <option value="" className="bg-zinc-950">Выберите формат</option>
           {FORMATS.map((f) => (
-            <option key={f.value} value={f.value} className="bg-zinc-900">
+            <option key={f.value} value={f.value} className="bg-zinc-950">
               {f.label}
             </option>
           ))}
@@ -131,7 +131,7 @@ export function LeadForm({
 
       <button
         type="submit"
-        className="w-full py-4 rounded-xl font-semibold text-base bg-gradient-to-r from-electric via-violet to-cyan text-white hover:opacity-90 transition-all glow cursor-pointer"
+        className="w-full py-4 rounded-xl font-semibold text-base bg-gradient-to-r from-electric via-violet to-cyan text-white hover:opacity-90 transition-all duration-300 glow cursor-pointer"
       >
         Получить предложение
       </button>

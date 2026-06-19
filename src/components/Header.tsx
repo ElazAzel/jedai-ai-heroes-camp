@@ -22,7 +22,7 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-zinc-300 hover:text-white transition-colors"
+              className="text-sm text-zinc-300 hover:text-cyan-300 transition-colors"
             >
               {link.label}
             </Link>
@@ -52,7 +52,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="block py-2 text-sm text-zinc-300 hover:text-white transition-colors"
+                className="block py-2 text-sm text-zinc-300 hover:text-cyan-300 transition-colors"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
