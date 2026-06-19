@@ -3,41 +3,78 @@ import { SITE_URL } from '@/data/landingPages'
 export const dynamic = 'force-static'
 
 export async function GET() {
-  const robots = `User-agent: *
-Allow: /
-Allow: /ai-camp-for-employees-children
-Allow: /corporate-ai-camp
-Allow: /hr-benefit-ai-camp
-Allow: /csr-ai-camp-for-kids
-Allow: /employer-brand-ai-camp
-Allow: /family-day-ai
-Allow: /onsite-ai-camp
-Allow: /external-ai-camp
-Allow: /weekend-ai-lab
-Allow: /ai-camp-for-kids-kazakhstan
-Allow: /ai-camp-almaty
-Allow: /ai-camp-astana
-Allow: /ai-camp-for-parents
-Allow: /ai-camp-for-teens
-Allow: /ai-project-camp-for-kids
-Allow: /ai-video-camp-for-kids
-Allow: /chatbot-camp-for-kids
-Allow: /prompt-engineering-for-kids
-Allow: /future-skills-for-kids
-Allow: /demo-day-ai-camp
-Allow: /ai-camp-for-banks
-Allow: /ai-camp-for-it-companies
-Allow: /ai-camp-for-telecom
-Allow: /ai-camp-for-energy-companies
-Allow: /ai-camp-for-universities
-Allow: /ai-camp-summer
-Allow: /ai-camp-school-break
-Allow: /safe-ai-for-kids
-Allow: /ai-camp-program
-Allow: /ai-camp-commercial-offer
-Allow: /landing-pages
+  const robots = `# JEDAI AI Heroes Camp — Robots.txt
+# https://jedai-camp.vercel.app
 
+# Allowed crawlers
+User-agent: *
+Allow: /
+Disallow: /_next/
+Disallow: /api/
+
+# Google-specific
+User-agent: Googlebot
+Allow: /
+Allow: /*.xml$
+Allow: /*.txt$
+
+# Google Image
+User-agent: Googlebot-Image
+Allow: /
+
+# Yandex
+User-agent: Yandex
+Allow: /
+Allow: /*.xml$
+Allow: /*.txt$
+Disallow: /_next/
+
+# Yandex Images
+User-agent: YandexImages
+Allow: /
+
+# AI crawlers
+User-agent: GPTBot
+Allow: /
+Allow: /*.txt$
+Allow: /*.xml$
+
+User-agent: Google-Extended
+Allow: /
+Allow: /*.txt$
+Allow: /*.xml$
+
+User-agent: CCBot
+Allow: /
+Allow: /*.txt$
+Allow: /*.xml$
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /*.txt$
+Allow: /*.xml$
+
+User-agent: PerplexityBot
+Allow: /
+Allow: /*.txt$
+Allow: /*.xml$
+
+User-agent: Claude-Web
+Allow: /
+Allow: /*.txt$
+Allow: /*.xml$
+
+# Sitemaps
 Sitemap: ${SITE_URL}/sitemap.xml
+
+# LLMs
+LLMs: ${SITE_URL}/llms.txt
+
+# Host
+Host: ${SITE_URL.replace('https://', '')}
+
+# Crawl-delay
+Crawl-delay: 1
 `
 
   return new Response(robots, {

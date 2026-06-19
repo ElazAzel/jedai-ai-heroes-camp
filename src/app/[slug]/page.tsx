@@ -20,8 +20,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: page.title,
     description: page.description,
+    keywords: [
+      page.audience, page.intent, 'AI-лагерь', 'искусственный интеллект',
+      'корпоративный лагерь', 'обучение AI', 'дети программирование',
+      page.slug.replace(/-/g, ' '),
+    ],
     alternates: {
       canonical: `${SITE_URL}/${page.slug}`,
+      languages: {
+        'ru': `${SITE_URL}/${page.slug}`,
+        'kk': `${SITE_URL}/${page.slug}`,
+      },
     },
     openGraph: {
       title: page.ogTitle,
@@ -30,7 +39,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: SITE_NAME,
       locale: 'ru_RU',
       type: 'website',
-      images: [{ url: DEFAULT_OG_IMAGE, width: 1200, height: 630 }],
+      images: [{ url: DEFAULT_OG_IMAGE, width: 1200, height: 630, alt: page.ogTitle }],
+      countryName: 'Казахстан',
     },
     twitter: {
       card: 'summary_large_image',
@@ -41,6 +51,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     robots: {
       index: true,
       follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    other: {
+      'geo.region': 'KZ-ALA',
+      'geo.placename': 'Алматы',
+      'geo.position': '43.238949;76.889709',
+      'ICBM': '43.238949, 76.889709',
     },
   }
 }

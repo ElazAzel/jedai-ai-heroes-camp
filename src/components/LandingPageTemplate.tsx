@@ -14,7 +14,7 @@ import { FAQSection } from './FAQSection'
 import { RelatedPages } from './RelatedPages'
 import { LeadForm } from './LeadForm'
 import { StickyCTA } from './StickyCTA'
-import { WebPageJsonLd, FAQPageJsonLd, BreadcrumbListJsonLd, CourseJsonLd, EventJsonLd } from './JsonLd';
+import { WebPageJsonLd, FAQPageJsonLd, BreadcrumbListJsonLd, CourseJsonLd, EventJsonLd, ProductJsonLd, SoftwareApplicationJsonLd, VideoObjectJsonLd } from './JsonLd';
 
 export function LandingPageTemplate({ page }: { page: LandingPage }) {
   return (
@@ -24,6 +24,9 @@ export function LandingPageTemplate({ page }: { page: LandingPage }) {
       <BreadcrumbListJsonLd page={page} />
       <CourseJsonLd page={page} />
       <EventJsonLd />
+      <ProductJsonLd />
+      <SoftwareApplicationJsonLd />
+      <VideoObjectJsonLd />
 
       <div className="min-h-screen bg-zinc-950">
         <HeroSection page={page} variant={page.heroVariant} />
