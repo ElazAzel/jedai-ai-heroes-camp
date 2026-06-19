@@ -13,7 +13,7 @@ export function ProgramTimeline() {
         <p className="text-zinc-400 text-center mb-12 max-w-2xl mx-auto">
           Каждый день — новый этап знакомства с AI и создания проекта
         </p>
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
           {PROGRAM_DAYS.map((day) => (
             <div
               key={day.day}

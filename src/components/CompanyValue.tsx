@@ -11,7 +11,7 @@ export function CompanyValueSection({ audience }: { audience: string }) {
         <p className="text-zinc-400 text-center mb-12 max-w-xl mx-auto">
           {isCompany ? 'JEDAI решает несколько бизнес-задач одновременно' : 'Что получит ваш ребёнок'}
         </p>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
           {isCompany ? (
             <>
               <ValueCard

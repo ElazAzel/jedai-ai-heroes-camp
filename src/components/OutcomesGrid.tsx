@@ -47,7 +47,7 @@ export function OutcomesGrid() {
         <p className="text-zinc-400 text-center mb-12 max-w-2xl mx-auto">
           За 10 учебных дней каждый участник проходит путь от знакомства с AI до собственного проекта
         </p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
           {OUTCOMES.map((item, i) => (
             <OutcomeCard key={item.title} title={item.title} description={item.description} index={i} />
           ))}

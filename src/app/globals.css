@@ -1,5 +1,29 @@
 @import "tailwindcss";
 
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  word-break: break-word;
+}
+
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
 :root {
   --background: #09090f;
   --background-alt: #0c0c14;
@@ -129,16 +153,20 @@ body {
   pointer-events: none;
 }
 .bg-aurora::before {
-  width: 600px; height: 600px;
-  top: -200px; left: -200px;
+  width: 300px; height: 300px;
+  top: -100px; left: -100px;
   background: var(--aurora-1);
   animation: aurora-drift 20s ease-in-out infinite alternate;
 }
 .bg-aurora::after {
-  width: 400px; height: 400px;
-  bottom: -150px; right: -150px;
+  width: 200px; height: 200px;
+  bottom: -80px; right: -80px;
   background: var(--aurora-3);
   animation: aurora-drift 25s ease-in-out infinite alternate-reverse;
+}
+@media (min-width: 640px) {
+  .bg-aurora::before { width: 600px; height: 600px; top: -200px; left: -200px; }
+  .bg-aurora::after { width: 400px; height: 400px; bottom: -150px; right: -150px; }
 }
 
 @keyframes aurora-drift {
@@ -230,8 +258,11 @@ body {
   background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 1rem;
-  padding: 1.5rem;
+  padding: 1.25rem;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@media (min-width: 640px) {
+  .bento-card { padding: 1.5rem; }
 }
 .bento-card:hover {
   background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.04));
@@ -242,13 +273,16 @@ body {
 
 /* ===== Stat Counter ===== */
 .stat-value {
-  font-size: 2.5rem;
+  font-size: 1.1rem;
   font-weight: 700;
   background: var(--gradient-ai);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   display: inline-block;
+}
+@media (min-width: 640px) {
+  .stat-value { font-size: 2.5rem; }
 }
 
 /* ===== Badge ===== */

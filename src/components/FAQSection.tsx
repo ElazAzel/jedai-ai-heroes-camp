@@ -32,7 +32,7 @@ export function FAQSection({ items }: { items: FAQItem[] }) {
             <div key={i} className="bento-card rounded-xl overflow-hidden">
               <button
                 onClick={() => toggle(i)}
-                className="w-full flex items-center justify-between px-6 py-4 text-left text-white font-medium hover:bg-white/5 transition-colors cursor-pointer"
+                className="w-full flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 text-left text-sm sm:text-base text-white font-medium hover:bg-white/5 transition-colors cursor-pointer"
                 aria-expanded={openIndex === i}
                 aria-controls={`faq-answer-${i}`}
               >
